@@ -6,6 +6,7 @@ use App\Entity\Rayon;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class RayonType extends AbstractType
 {
@@ -13,8 +14,8 @@ class RayonType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description')
-            ->add('image_file')
+            ->add('description', CKEditorType::class)
+	    ->add('image_file')
         ;
     }
 

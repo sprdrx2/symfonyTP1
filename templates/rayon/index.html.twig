@@ -23,7 +23,7 @@
                 <td>{{ rayon.title }}</td>
                 <td>{{ rayon.description }}</td>
 		<td>{{ rayon.products.count }}</td>
-                <td>{{ rayon.imageFile }}</td>
+                <td><img src="{{ asset(rayon.imageFile) }}" width="200px"/></td>
                 <td>
                     <a href="{{ path('rayon_show', {'id': rayon.id}) }}">show</a>
                     <a href="{{ path('rayon_edit', {'id': rayon.id}) }}">edit</a>
