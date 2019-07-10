@@ -10,13 +10,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/rayon")
- */
+
 class RayonController extends AbstractController
 {
+
     /**
-     * @Route("/", name="rayon_index", methods={"GET"})
+     * @Route("/catalog", name="rayon_public_index_catalogue", methods = {"GET"})
+     */
+    public function rayonPublicIndexCatalogueAction(RayonRepository $rayonRepository): Response
+    {
+        return $this->render('rayon/catalogue.html.twig', [
+            'rayons' => $rayonRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/manager/rayon", name="rayon_index", methods={"GET"})
      */
     public function index(RayonRepository $rayonRepository): Response
     {
@@ -26,7 +35,7 @@ class RayonController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="rayon_new", methods={"GET","POST"})
+     * @Route("/manager/rayon/new", name="rayon_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +58,7 @@ class RayonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="rayon_show", methods={"GET"})
+     * @Route("/manager/rayon/{id}", name="rayon_show", methods={"GET"})
      */
     public function show(Rayon $rayon): Response
     {
@@ -59,7 +68,7 @@ class RayonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="rayon_edit", methods={"GET","POST"})
+     * @Route("/manager/rayon/{id}/edit", name="rayon_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Rayon $rayon): Response
     {
@@ -79,7 +88,7 @@ class RayonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="rayon_delete", methods={"DELETE"})
+     * @Route("/manager/rayon/{id}", name="rayon_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Rayon $rayon): Response
     {

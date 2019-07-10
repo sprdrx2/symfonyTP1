@@ -5,8 +5,15 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
+	<style>h1 { text-align: center; } h2, h3, header p { text-align: right; }</style>
     </head>
     <body>
+    	<header>
+	<h1>Bienvenue a l'epicerie du Bout du Monde.</h1>
+	<h2>Ouvert a toute heure du jour et de la nuit.</h2>
+	<h3>Livraison par pigeon voyageur.</h3>
+	<p><a href="{{ path('rayon_index')}}">Manager</a></p>
+	</header>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

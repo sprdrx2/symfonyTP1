@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block body %}
+    <h1>Catalogue</h1>
+
+<div class="container">
+<div class="row">
+
+
+{% for rayon in rayons %}
+  <div class="col-4">
+  <h2>{{ rayon.title }}</h2>
+  <h3>{{ rayon.description }}</h3>
+  <p><img src="{{ asset(rayon.imageFile) }}"  width="200px" /></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Prix</th>
+                <th>Item</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+		{% for produit in rayon.products %}
+		<tr>
+			<td>{{ produit.price }} &euro;</td>
+			<td><a href="{{ path('product_show_public', {'id':produit.id}) }}">{{ produit.title }}</a></td>
+			<td>{{ produit.description }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+     </table>	
+     </div>
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock %}
