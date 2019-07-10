@@ -31,6 +31,12 @@ class Product
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Rayon", inversedBy="products")
+     * @ORM\JoinColumn(name="rayon_id", referencedColumnName="id")
+     */
+    private $rayon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +74,18 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getRayon(): ?Rayon
+    {
+        return $this->rayon;
+    }
+
+    public function setRayon(?Rayon $rayon): self
+    {
+        $this->rayon = $rayon;
 
         return $this;
     }

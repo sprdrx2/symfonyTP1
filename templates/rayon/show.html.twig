@@ -31,4 +31,14 @@
     <a href="{{ path('rayon_edit', {'id': rayon.id}) }}">edit</a>
 
     {{ include('rayon/_delete_form.html.twig') }}
+
+    {% if rayon.products.count > 0 %}
+    <h5>Produits</h5>
+    <ul>
+    {% for product in rayon.products %}
+    	<li>{{ product.title }}: {{ product.price }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
 {% endblock %}

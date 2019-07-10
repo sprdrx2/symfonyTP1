@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Product;
+use App\Entity\Rayon;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProductType extends AbstractType
 {
@@ -14,7 +16,8 @@ class ProductType extends AbstractType
         $builder
             ->add('price')
             ->add('title')
-            ->add('description')
+	    ->add('description')
+    	    ->add('rayon', EntityType::class, [ 'class' => Rayon::class, 'choice_label' => 'title' ] )
         ;
     }
 

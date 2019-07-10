@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
+		<th>Nombre de produits</th>
                 <th>Image_file</th>
                 <th>actions</th>
             </tr>
@@ -21,6 +22,7 @@
                 <td>{{ rayon.id }}</td>
                 <td>{{ rayon.title }}</td>
                 <td>{{ rayon.description }}</td>
+		<td>{{ rayon.products.count }}</td>
                 <td>{{ rayon.imageFile }}</td>
                 <td>
                     <a href="{{ path('rayon_show', {'id': rayon.id}) }}">show</a>
