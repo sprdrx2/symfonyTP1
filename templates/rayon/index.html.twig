@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rayon index{% endblock %}
+
+{% block body %}
+    <h1>Rayon index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image_file</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rayon in rayons %}
+            <tr>
+                <td>{{ rayon.id }}</td>
+                <td>{{ rayon.title }}</td>
+                <td>{{ rayon.description }}</td>
+                <td>{{ rayon.imageFile }}</td>
+                <td>
+                    <a href="{{ path('rayon_show', {'id': rayon.id}) }}">show</a>
+                    <a href="{{ path('rayon_edit', {'id': rayon.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('rayon_new') }}">Create new</a>
+{% endblock %}

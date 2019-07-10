@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rayon{% endblock %}
+
+{% block body %}
+    <h1>Rayon</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rayon.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ rayon.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ rayon.description }}</td>
+            </tr>
+            <tr>
+                <th>Image_file</th>
+                <td>{{ rayon.imageFile }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('rayon_index') }}">back to list</a>
+
+    <a href="{{ path('rayon_edit', {'id': rayon.id}) }}">edit</a>
+
+    {{ include('rayon/_delete_form.html.twig') }}
+{% endblock %}
