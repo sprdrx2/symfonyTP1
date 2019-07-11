@@ -17,7 +17,7 @@ class ProductType extends AbstractType
         $builder
             ->add('price')
             ->add('title')
-	    ->add('description', CKEditorType::class)
+	    ->add('description')
     	    ->add('rayon', EntityType::class, [ 'class' => Rayon::class, 'choice_label' => 'title' ] )
         ;
     }

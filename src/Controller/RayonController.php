@@ -50,7 +50,8 @@ class RayonController extends AbstractController
 	     if($imageFile) {
 	   	$this->handleImageUpload($imageFile, $rayon); 
 	     }	
-	    
+
+	    $rayon->setDescription(htmlspecialchars($rayon->getDescription())); 
 	    $entityManager->persist($rayon);
             $entityManager->flush();
 
@@ -87,8 +88,10 @@ class RayonController extends AbstractController
 	     if($imageFile) {
 	   	$this->handleImageUpload($imageFile, $rayon); 
 	     }	
-	    $this->getDoctrine()->getManager()->persist($rayon);
-	     
+
+
+	     $rayon->setDescription(htmlspecialchars($rayon->getDescription())); 
+	     $this->getDoctrine()->getManager()->persist($rayon);
 	     $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('rayon_index');
         }

@@ -34,12 +34,13 @@ class CommentController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+	if ($form->isSubmitted() && $form->isValid()) {
+	    $comment->setText(htmlspecialchars($comment->getText())); 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
+	    $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('product_show_public', [ 'id' => $comment->getProduct()->getId()]);
+            return $this->redirectToRoute('product_show_public_slug', [ 'slug' => $comment->getProduct()->getSlug()]);
         }
 
         return $this->render('comment/new.html.twig', [

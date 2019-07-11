@@ -66,7 +66,8 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($product);
+	    $product->setDescription(htmlspecialchars($product->getDescription()));
+	    $entityManager->persist($product);
             $entityManager->flush();
 
             return $this->redirectToRoute('product_index');
@@ -96,7 +97,9 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+	if ($form->isSubmitted() && $form->isValid()) {
+	    $product->setDescription(htmlspecialchars($product->getDescription()));
+    	    $this->getDotrine()->getManager()->persist($product);	    
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_index');

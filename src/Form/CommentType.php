@@ -18,7 +18,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('ClientName')
-            ->add('Text', CKEditorType::class)
+            ->add('Text')
 	    ->add('product', EntityType::class, [ 'class' => Product::class, 'choice_label' => 'title' ] )
         ;
     }

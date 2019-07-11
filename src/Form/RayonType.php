@@ -17,7 +17,7 @@ class RayonType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description', CKEditorType::class)
+            ->add('description')
 	    ->add('imageFile', FileType::class, [
                 'label' => 'Illustration',
 
