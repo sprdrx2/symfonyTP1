@@ -1,0 +1,4 @@
+<div class="popularVotes" id="popularVotes-Product-{{ product.id }}">
+ 	<span  class="popularVotesOKThumbs"><a href="{{ path('product_vote', { 'id': product.id, 'verdict': 'OK'} )}}">&#128077;</a></span> <span class="popularVotesOKCount">{{ product.PopularVotesOK }}</span>
+        <span  class="popularVotesNOKThumbs"><a href="{{ path('product_vote', { 'id': product.id, 'verdict': 'NOK'} )}}">&#128078;</a></span> <span class="popularVotesNOKCount">{{ product.PopularVotesNOK }}</span>
+</div>

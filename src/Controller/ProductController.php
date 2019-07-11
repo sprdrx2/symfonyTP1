@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Entity\PopularVote;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,19 @@ class ProductController extends AbstractController
         ]);
     }
 
+   /**	
+    * @Route("/vote/{id}/{verdict}", name="product_vote", methods={"GET"}, requirements={ "verdict" = "OK|NOK" } )
+    */
+    public function productVoteAction(Product $product, String $verdict) {
+	    $v = ($verdict === "OK") ? TRUE : FALSE;
+	    $pV = new PopularVote();
+	    $pV->setProduct($product);
+	    $pV->setVerdict($v);
+	    $this->getDoctrine()->getManager()->persist($pV);
+	    $this->getDoctrine()->getManager()->flush();
+	    //return $this->json(['popularVotesOK' => $product->getPopularVotesOK(), "popularVotesNOK" => $product->getPopularVotesNOK() ]); // pour AJAX après
+    	    return $this->redirectToRoute('product_show_public_slug', ['slug' => $product->getSlug() ]);
+    }
 
     /**
      * @Route("/manager/product", name="product_index", methods={"GET"})
@@ -48,7 +62,7 @@ class ProductController extends AbstractController
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
+	$form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();

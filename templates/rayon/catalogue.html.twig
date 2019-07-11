@@ -21,14 +21,17 @@
                 <th>Prix</th>
                 <th>Item</th>
                 <th>Description</th>
+		<th>Votes</th>
             </tr>
         </thead>
         <tbody>
-		{% for produit in rayon.products %}
+		{% for product in rayon.products %}
 		<tr>
-			<td>{{ produit.price }} &euro;</td>
-			<td><a href="{{ path('product_show_public_slug', {'slug':produit.slug}) }}">{{ produit.title }}</a></td>
-			<td>{{ produit.description }}</td>
+			<td>{{ product.price }} &euro;</td>
+			<td><a href="{{ path('product_show_public_slug', {'slug':product.slug}) }}">{{ product.title }}</a></td>
+			<td>{{ product.description }}</td>
+			<td>{% include 'popular_votes/_popular_votes.html.twig' %}</td>
+	
 		</tr>
 		{% endfor %}
 	</tbody>

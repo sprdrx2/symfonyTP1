@@ -39,13 +39,24 @@ class Product
      */
     private $rayon;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
-     */
+   /**
+    * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
+    */
+ 
     private $comments;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="PopularVote", mappedBy="product")
+     */
+    private $popularVotes;
+
+   private $popularVotesOK = 0;
+   private $popularVotesNOK = 0;
+   private $popularVotesCalculated = FALSE;
 
    public function __construct() {
-     $this->comments = new ArrayCollection();
+	   $this->comments = new ArrayCollection();
+	   $this->popularVotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,4 +146,55 @@ class Product
     public function getSlug(): string {
 	return str_replace(' ', '-', $this->title);
     }
+
+    /**
+     * @return Collection|PopularVote[]
+     */
+    public function getPopularVotes(): Collection
+    {
+        return $this->popularVotes;
+    }
+
+    public function addPopularVote(PopularVote $popularVote): self
+    {
+        if (!$this->popularVotes->contains($popularVote)) {
+            $this->popularVotes[] = $popularVote;
+            $popularVote->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePopularVote(PopularVote $popularVote): self
+    {
+        if ($this->popularVotes->contains($popularVote)) {
+            $this->popularVotes->removeElement($popularVote);
+            // set the owning side to null (unless already changed)
+            if ($popularVote->getProduct() === $this) {
+                $popularVote->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function calculatePopularVotesResults() {
+	    foreach($this->popularVotes as $vote) {
+		if($vote->getVerdict() == TRUE) {
+			$this->popularVotesOK++;
+		} else {
+			$this->popularVotesNOK++;
+		}
+	    }
+	    $this->popularVotesCalculated = TRUE;	    
+    }  
+
+    public function getPopularVotesOK(): int {
+	    if(!$this->popularVotesCalculated) { $this->calculatePopularVotesResults(); }
+	    return $this->popularVotesOK;
+    }
+    public function getPopularVotesNOK(): int { 
+	    if(!$this->popularVotesCalculated) { $this->calculatePopularVotesResults(); }
+	    return $this->popularVotesNOK;   
+    }    
 }

@@ -3,9 +3,10 @@
 {% block title %}{{ product.title }}{% endblock %}
 
 {% block body %}
-    <h1>{{ product.title|upper }}</h1>
-
+    
     <a href="{{ path('rayon_public_index_catalogue') }}">Retour au catalogue</a>
+    
+    <h1>{{ product.title|upper }}</h1>
     
     <table class="table">
         <tbody>
@@ -25,9 +26,14 @@
                 <th>Description</th>
                 <td>{{ product.description }}</td>
             </tr>
+	    <tr>
+	    	<th>Votes</th>
+		<td>
+		{% include 'popular_votes/_popular_votes.html.twig' %}
+		</td>
+	    </tr>
         </tbody>
     </table>
-
 
 
     {% if product.comments.count > 0 %}
