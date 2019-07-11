@@ -30,5 +30,21 @@
 
 
 
+    {% if product.comments.count > 0 %}
+    <h5>Ils ont dis:</h5>
+    <ul>
+    {% for comment in product.comments %}
+    	<li>{{ comment.clientname }} a dit <q>{{ comment.text }}</q></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+
+{{ form_start(form, {'action': path('comment_new'), 'method': 'POST'}) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
 
 {% endblock %}
+

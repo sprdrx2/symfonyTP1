@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +20,12 @@ class ProductController extends AbstractController
      */
     public function showPublic(Product $product): Response
     {
-        return $this->render('product/show.public.html.twig', [
-            'product' => $product,
+	    $comment = new Comment();
+	   $comment->setProduct($product); 
+	   $form = $this->createForm(CommentType::class, $comment); 
+	   return $this->render('product/show.public.html.twig', [
+		   'product' => $product,
+		   'form'    => $form->createView(),
         ]);
     }
 
