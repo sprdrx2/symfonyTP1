@@ -1,3 +1,5 @@
+{% set vote_disabled = FALSE %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +17,7 @@
 	<h1>Bienvenue a l'epicerie du Bout du Monde.</h1>
 	<h2>Ouvert a toute heure du jour et de la nuit.</h2>
 	<h3>Livraison par pigeon voyageur.</h3>
-	<p><a href="{{ path('rayon_index')}}">Manager</a></p>
+	<p>{% block lienManagerOfficeOuCatalogue %}{% endblock %}</p>
 	</header>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

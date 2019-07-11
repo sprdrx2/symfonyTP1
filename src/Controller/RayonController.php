@@ -25,6 +25,15 @@ class RayonController extends AbstractController
     }
 
     /**
+     * @Route("/manager", name="rayon_manager_office", methods = {"GET"})
+     */
+    public function rayonManagerOfficeAction(RayonRepository $rayonRepository): Response {
+	 return $this->render('rayon/managerOffice.html.twig', [
+            'rayons' => $rayonRepository->findAll(),
+        ]);
+    }	    
+
+    /**
      * @Route("/manager/rayon", name="rayon_index", methods={"GET"})
      */
     public function index(RayonRepository $rayonRepository): Response

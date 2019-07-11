@@ -1,4 +1,4 @@
 <div class="popularVotes" id="popularVotes-Product-{{ product.id }}">
- 	<span  class="popularVotesOKThumbs"><a href="{{ path('product_vote', { 'id': product.id, 'verdict': 'OK'} )}}">&#128077;</a></span> <span class="popularVotesOKCount">{{ product.PopularVotesOK }}</span>
-        <span  class="popularVotesNOKThumbs"><a href="{{ path('product_vote', { 'id': product.id, 'verdict': 'NOK'} )}}">&#128078;</a></span> <span class="popularVotesNOKCount">{{ product.PopularVotesNOK }}</span>
+ 	<span  class="popularVotesOKThumbs">{% if not vote_disabled %}<a href="{{ path('product_vote', { 'id': product.id, 'verdict': 'OK'} )}}">{% endif %}&#128077;{% if not vote_disabled %}</a>{% endif %}</span> <span class="popularVotesOKCount">{{ product.PopularVotesOK }}</span>
+        <span  class="popularVotesNOKThumbs">{% if not vote_disabled %}<a href="{{ path('product_vote', { 'id': product.id, 'verdict': 'NOK'} )}}">{% endif %}&#128078;{% if not vote_disabled %}</a>{% endif %}</span> <span class="popularVotesNOKCount">{{ product.PopularVotesNOK }}</span>
 </div>
