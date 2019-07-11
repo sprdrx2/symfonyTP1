@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class RayonController extends AbstractController
 {
@@ -45,7 +45,13 @@ class RayonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($rayon);
+	    
+	     $imageFile = $form['imageFile']->getData();
+	     if($imageFile) {
+	   	$this->handleImageUpload($imageFile, $rayon); 
+	     }	
+	    
+	    $entityManager->persist($rayon);
             $entityManager->flush();
 
             return $this->redirectToRoute('rayon_index');
@@ -72,12 +78,18 @@ class RayonController extends AbstractController
      */
     public function edit(Request $request, Rayon $rayon): Response
     {
-        $form = $this->createForm(RayonType::class, $rayon);
+        $form = $this->createForm(RayonType::class, $rayon);	
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
+	     $imageFile = $form['imageFile']->getData();
+	     if($imageFile) {
+	   	$this->handleImageUpload($imageFile, $rayon); 
+	     }	
+	    $this->getDoctrine()->getManager()->persist($rayon);
+	     
+	     $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('rayon_index');
         }
 
@@ -86,6 +98,15 @@ class RayonController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    private function handleImageUpload($imageFile, $rayon) {
+	     	$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+             	// this is needed to safely include the file name as part of the URL
+             	//$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+             	$newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+	     	$imageFile->move('C:\Users\saami.perdrix\Downloads\IPI2\SYMFONY\epicerie\public', $newFilename);
+	     	$rayon->setImageFile($newFilename);
+     }     
 
     /**
      * @Route("/manager/rayon/{id}", name="rayon_delete", methods={"DELETE"})

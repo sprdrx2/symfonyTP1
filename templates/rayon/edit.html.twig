@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Edit Rayon</h1>
 
+    <p><img src="{{ asset(rayon.imageFile) }}" width="200px"/></p>
+
     {{ include('rayon/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('rayon_index') }}">back to list</a>
