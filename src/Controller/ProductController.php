@@ -16,11 +16,12 @@ class ProductController extends AbstractController
 {
     
     /**
-     * @Route("/product/{id}", name="product_show_public", methods={"GET"})
+     * @Route("/product/{slug}", name="product_show_public_slug", methods={"GET"}) 
      */
-    public function showPublic(Product $product): Response
+    public function showPublic(String $slug): Response
     {
-	    $comment = new Comment();
+	   $product = $this->getDoctrine()->getRepository(Product::class)->findOneByTitle(str_replace('-', ' ', $slug));
+	   $comment = new Comment();
 	   $comment->setProduct($product); 
 	   $form = $this->createForm(CommentType::class, $comment); 
 	   return $this->render('product/show.public.html.twig', [

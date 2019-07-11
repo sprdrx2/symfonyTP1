@@ -131,4 +131,8 @@ class Product
 
         return $this;
     }
+
+    public function getSlug(): string {
+	return str_replace(' ', '-', $this->title);
+    }
 }

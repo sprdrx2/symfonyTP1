@@ -27,7 +27,7 @@
 		{% for produit in rayon.products %}
 		<tr>
 			<td>{{ produit.price }} &euro;</td>
-			<td><a href="{{ path('product_show_public', {'id':produit.id}) }}">{{ produit.title }}</a></td>
+			<td><a href="{{ path('product_show_public_slug', {'slug':produit.slug}) }}">{{ produit.title }}</a></td>
 			<td>{{ produit.description }}</td>
 		</tr>
 		{% endfor %}
