@@ -42,7 +42,7 @@ class ProductController extends AbstractController
 	    $this->getDoctrine()->getManager()->persist($pV);
 	    $this->getDoctrine()->getManager()->flush();
 	    //return $this->json(['popularVotesOK' => $product->getPopularVotesOK(), "popularVotesNOK" => $product->getPopularVotesNOK() ]); // pour AJAX après
-    	    return $this->redirectToRoute('product_show_public_slug', ['slug' => $product->getSlug() ]);
+    	    return $this->redirectToRoute('rayon_public_index_catalogue');
     }
 
     /**
