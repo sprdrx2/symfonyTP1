@@ -42,6 +42,16 @@ class RayonController extends AbstractController
     }	    
 
     /**
+     * @Route("/manager/rayon/{id}/product/new", name="rayon_product_new", methods = {"GET"})
+     */
+    public function renderRayonNewProduct(Rayon $rayon) {
+	$newProduct = new Product();
+	$newProduct->setRayon($rayon);
+	$productForm = $this->createForm(ProductType::class, $newProduct, [ 'action' => $this->generateUrl('product_new') ] );	
+        return $this->render('product/_form.html.twig', ['form' => $productForm->createView() ]);
+    }	    
+
+    /**
      * @Route("/manager/rayon", name="rayon_index", methods={"GET"})
      */
     public function index(RayonRepository $rayonRepository): Response
