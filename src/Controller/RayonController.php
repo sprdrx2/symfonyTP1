@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Rayon;
+use App\Entity\Product;
 use App\Form\RayonType;
+use App\Form\ProductType;
 use App\Repository\RayonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,8 +30,14 @@ class RayonController extends AbstractController
      * @Route("/manager", name="rayon_manager_office", methods = {"GET"})
      */
     public function rayonManagerOfficeAction(RayonRepository $rayonRepository): Response {
-	 return $this->render('rayon/managerOffice.html.twig', [
-            'rayons' => $rayonRepository->findAll(),
+	$newRayon = new Rayon();
+    	$newProduct = new Product();
+	$rayonForm = $this->createForm(RayonType::class, $newRayon, [ 'action' => $this->generateUrl('rayon_new') ] );
+	$productForm = $this->createForm(ProductType::class, $newProduct, [ 'action' => $this->generateUrl('product_new') ] );
+	return $this->render('rayon/managerOffice.html.twig', [
+		'rayons' => $rayonRepository->findAll(),
+		'rayonForm' => $rayonForm->createView(),
+		'productForm' => $productForm->createView(),
         ]);
     }	    
 
@@ -64,7 +72,7 @@ class RayonController extends AbstractController
 	    $entityManager->persist($rayon);
             $entityManager->flush();
 
-            return $this->redirectToRoute('rayon_index');
+            return $this->redirectToRoute('rayon_manager_office');
         }
 
         return $this->render('rayon/new.html.twig', [
